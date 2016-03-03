@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+<p>
+<%= image_tag @user.avatar.url(:thumb) %>
+  <b>Name:</b>
+  <%= link_to @user.name, user_path(@user) %>
+
+</p>
+<hr />
+<%= image_tag @product.attachment.url(:medium) %><br />
+<p>
+  <b>Title:</b>
+  <%= @product.title %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @product.description %>
+</p>
+
+<p>
+  <b>Price:</b>
+  <%= @product.price %>
+</p>
+
+
+<%= link_to 'Edit', edit_user_product_path(@user, @product) %> |
+<%= link_to 'Back', user_path(@user) %>
