@@ -1,16 +1,16 @@
 class ProductsController < ApplicationController
   before_filter :set_product, only: [:show, :edit, :update, :destroy]
+  before_filter :authenticate_user!, only: [:new, :edit, :update, :create, :destroy]
 
   respond_to :html
 
   def index
     @products = Product.all
-    respond_with(@products)
   end
 
   def show
     @product = Product.find(params[:id])
-    @user = User.find(params[:user_id])
+
   end
 
   def new

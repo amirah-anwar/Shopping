@@ -1,11 +1,8 @@
 class UsersController < ApplicationController
-  # GET /users
-  # GET /users.json
   before_filter :authenticate_user!
 
   def index
-    @users = User.all
-    @products = Product.all
+    @products = current_user.products
 
     respond_to do |format|
       format.html # index.html.erb
