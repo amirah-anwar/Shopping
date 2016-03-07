@@ -1,7 +1,5 @@
 Demo::Application.routes.draw do
-  resources :reviews
-
-
+resources :reviews
   devise_for :users
   resources :users do
     resources :products do
@@ -9,7 +7,9 @@ Demo::Application.routes.draw do
     end
   end
   resources :products do
-      resources :reviews
-    end
-  root :to => 'users#index'
+    resources :reviews
+  end
+  root :to => 'products#index'
+
+  get '/dashboard' => 'users#dashboard'
 end

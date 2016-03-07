@@ -1,0 +1,48 @@
+<p id="notice"><%= notice %></p>
+<div>
+<p>
+<%= image_tag current_user.avatar.url(:thumb) %>
+</p>
+<p>
+  <b>Welcome!</b>
+  <%= current_user.name %>
+</p>
+<%= link_to 'Edit Profile', edit_user_path(current_user) %> <br/>
+</div>
+
+<hr />
+<%= paginate @products %>
+<hr />
+<b>
+  Your Products
+</b><br />
+<% @products.each do |product| %>
+<div>
+  <p>
+    <%= image_tag product.attachment.url(:thumb) %><br />
+    <b>Title:</b>
+    <%= link_to product.title, user_product_path(current_user, product) %>
+  </p>
+  <%= link_to 'Edit Product', edit_user_product_path(current_user, product) %> |
+  <%= link_to 'Delete Product', [current_user, product], method: :delete, data: { confirm: 'Are you sure?' } %><br />
+  <hr />
+</div>
+<% end %>
+<div>
+  <p>
+    Reviews by you:
+  </p>
+  <% @reviews.each do |review| %>
+    <p>
+    <%= image_tag review.product.attachment.url(:thumb) %><br />
+    <%= review.product.title %><br />
+    Review:<br />
+    <%= review.description %><br />
+    </p>
+    ---------------------------------
+  <% end %>
+</div>
+<hr />
+
+<%= link_to 'Add Products',  new_user_product_path(current_user) %> |
+<%= link_to 'View all Products', products_path %>
