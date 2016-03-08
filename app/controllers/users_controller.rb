@@ -73,7 +73,7 @@ class UsersController < ApplicationController
   end
 
   def dashboard
-    @products = current_user.products.page(params[:page]).per(2)
+    @products = current_user.products.page(params[:page]).per(10)
     @reviews = current_user.reviews.includes(:product)
 
     respond_to do |format|

@@ -1,6 +1,6 @@
 class ReviewsController < ApplicationController
+  before_filter :set_product
   before_filter :set_review, only: [:show, :edit, :update, :destroy]
-
   respond_to :html
 
   def index
@@ -14,7 +14,6 @@ class ReviewsController < ApplicationController
 
   def new
     @review = Review.new
-    respond_with(@review)
   end
 
   def edit
@@ -22,22 +21,34 @@ class ReviewsController < ApplicationController
 
   def create
     @review = Review.new(params[:review])
+    @review.user_id = current_user.id
+    @review.product_id = @product.id
     @review.save
-    respond_with(@review)
   end
 
   def update
-    @review.update_attributes(params[:review])
-    respond_with(@review)
+    respond_to do |format|
+      if  @review.update_attributes(params[:review])
+        format.html { redirect_to @product, notice: 'Review was successfully updated.' }
+        format.json { head :no_content }
+      else
+        format.html { render action: "edit" }
+        format.json { render json: @review.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   def destroy
     @review.destroy
-    respond_with(@review)
+    redirect_to @product, notice: 'Review was successfully deleted.'
   end
 
   private
     def set_review
       @review = Review.find(params[:id])
+    end
+
+    def set_product
+      @product = Product.find(params[:product_id])
     end
 end

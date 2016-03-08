@@ -3,7 +3,6 @@
 <%= image_tag @user.avatar.url(:thumb) %>
   <b>Name:</b>
   <%= link_to @user.name, user_path(@user) %>
-
 </p>
 <hr />
 <%= image_tag @product.attachment.url(:medium) %><br />
@@ -21,7 +20,29 @@
   <b>Price:</b>
   <%= @product.price %>
 </p>
+<hr />
+<div>
+  <h2>Reviews</h2>
+  <table id="reviews">
+    <% @reviews.each do |review| %>
+      <%= render 'reviews/review', review: review %>
+    <% end %>
+  </table>
+</div>
 
+<% if user_signed_in? && !@product.is_owner?(current_user.id) %>
 
-<%= link_to 'Edit', edit_user_product_path(@user, @product) %> |
-<%= link_to 'Back', user_path(@user) %>
+  <%= form_for [@product, @review], remote: true do |f| %>
+    <div class="field">
+      <%= f.label 'Write your review' %><br />
+      <%= f.text_area :description %>
+    </div>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+  <% end %>
+
+<% end %>
+<hr />
+
+<%= link_to 'Back', products_path %>

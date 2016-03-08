@@ -21,10 +21,10 @@
   <p>
     <%= image_tag product.attachment.url(:thumb) %><br />
     <b>Title:</b>
-    <%= link_to product.title, user_product_path(current_user, product) %>
+    <%= link_to product.title, product_path(product) %>
   </p>
-  <%= link_to 'Edit Product', edit_user_product_path(current_user, product) %> |
-  <%= link_to 'Delete Product', [current_user, product], method: :delete, data: { confirm: 'Are you sure?' } %><br />
+  <%= link_to 'Edit Product', edit_product_path(product) %> |
+  <%= link_to 'Delete Product', product, method: :delete, data: { confirm: 'Are you sure?' } %><br />
   <hr />
 </div>
 <% end %>
@@ -44,5 +44,5 @@
 </div>
 <hr />
 
-<%= link_to 'Add Products',  new_user_product_path(current_user) %> |
+<%= link_to 'Add Products',  new_product_path %> |
 <%= link_to 'View all Products', products_path %>
