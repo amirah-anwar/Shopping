@@ -20,15 +20,19 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
-gem 'jquery-rails'
+gem 'jquery-rails', '~> 2.3'
 
-gem 'devise'
+gem 'jquery-ui-rails'
 
 gem 'test-unit'
 
 gem "paperclip", "~> 4.3"
 
 gem "kaminari"
+
+gem 'activeadmin', '~> 0.6.6'
+
+gem 'devise'
 
 
 # To use ActiveModel has_secure_password
