@@ -1,47 +1,69 @@
 <p id="notice"><%= notice %></p>
-<div>
-<p>
-<%= image_tag current_user.avatar.url(:thumb) %>
-</p>
-<p>
-  <b>Welcome!</b>
-  <%= current_user.name %>
-</p>
-<%= link_to 'Edit Profile', edit_user_path(current_user) %> <br/>
+<div class="row">
+  <div class="col-xs-12 col-md-9">
+    <h3>Your Products</h3>
+    <%= paginate @products %>
+    <div class="clearfix"></div>
+    <div class="row">
+      <% @products.each do |product| %>
+        <div class="col-xs-6 col-md-4">
+          <div class="well mywell">
+            <span><%= image_tag product.attachment.url(:thumb) %></span>
+            <p class="product-title"><%= link_to product.title, product_path(product) %></p>
+            <p>Price: <%= number_to_currency product.price %></p>
+            <p><%= link_to 'Edit Product', edit_product_path(product) %> |
+                <%= link_to 'Delete Product', product, method: :delete,
+                                data: { confirm: 'Are you sure?' } %></p>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <div class="col-xs-6 col-md-3">
+    <div class="user-profile">
+      <div class="row">
+        <div class="col-md-6">
+          <%= image_tag current_user.avatar.url(:thumb) %>
+        </div>
+        <div class="col-md-6 user-col">
+          <strong>Welcome!! </strong><br />
+          <p><%= current_user.name %></p>
+          <p><%= link_to 'Edit Profile', edit_user_path(current_user) %></p>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <hr />
-<%= paginate @products %>
-<hr />
-<b>
-  Your Products
-</b><br />
-<% @products.each do |product| %>
-<div>
-  <p>
-    <%= image_tag product.attachment.url(:thumb) %><br />
-    <b>Title:</b>
-    <%= link_to product.title, product_path(product) %>
-  </p>
-  <%= link_to 'Edit Product', edit_product_path(product) %> |
-  <%= link_to 'Delete Product', product, method: :delete, data: { confirm: 'Are you sure?' } %><br />
-  <hr />
+
+<div class="reviews">
+  <h3>Reviews by You:</h3>
+  <div id="reviews">
+    <% @reviews.each do |review| %>
+      <div class="single-review">
+        <div class="review-description">
+          <div class="row">
+            <div class="col-xs-6 col-md-3 dash">
+              <%= image_tag review.product.attachment.url(:thumb) %><br />
+              <span><%= review.product.title %></span>
+            </div>
+            <div class="col-xs-12 col-md-9">
+              You said:<br />
+              <%= review.description %>
+              <div>
+                <%= link_to 'Edit Review', edit_product_review_path(review.product, review) %>
+              | <%= link_to 'Delete Review', [review.product, review], method: :delete,
+                       data: { confirm: 'Are you sure?' } %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
 </div>
-<% end %>
-<div>
-  <p>
-    Reviews by you:
-  </p>
-  <% @reviews.each do |review| %>
-    <p>
-    <%= image_tag review.product.attachment.url(:thumb) %><br />
-    <%= review.product.title %><br />
-    Review:<br />
-    <%= review.description %><br />
-    </p>
-    ---------------------------------
-  <% end %>
-</div>
+
 <hr />
 
 <%= link_to 'Add Products',  new_product_path %> |

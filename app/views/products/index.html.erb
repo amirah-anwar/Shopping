@@ -1,25 +1,14 @@
-<h1>Listing products</h1>
-
-<table>
-  <tr>
-    <th>Title</th>
-    <th>Description</th>
-    <th>Price</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @products.each do |product| %>
-  <tr>
-    <td><%= product.title %></td>
-    <td><%= product.description %></td>
-    <td><%= product.price %></td>
-    <td><%= link_to 'Show', product_path(product) %></td>
-  </tr>
-<% end %>
-</table>
-
-<br />
-
-<%= link_to 'Back', users_path %>
+<h1>Products</h1>
+<%= paginate @products %>
+<div class="clearfix"></div>
+<div class="row">
+  <% @products.each do |product| %>
+    <div class="col-xs-6 col-md-3">
+      <div class="well mywell">
+        <span><%= image_tag product.attachment.url(:thumb) %></span>
+        <p class="product-title"><%= link_to product.title, product_path(product) %></p>
+        <p>Price: <%= number_to_currency product.price %></p>
+      </div>
+    </div>
+  <% end %>
+</div>

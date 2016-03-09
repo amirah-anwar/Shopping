@@ -1,63 +1,48 @@
 <p id="notice"><%= notice %></p>
-
-<p>
-<%= image_tag @user.avatar.url(:thumb) %>
-</p>
-<p>
-  <b>First name:</b>
-  <%= @user.fname %>
-</p>
-
-<p>
-  <b>Last name:</b>
-  <%= @user.lname %>
-</p>
-
-<p>
-  <b>Email Address:</b>
-  <%= @user.email %>
-</p>
-
-<p>
-  <b>Postal Address:</b>
-  <%= @user.postal %>
-</p>
-<%= link_to 'Edit', edit_user_path(@user) %> <br/>
-
-<hr />
-<%= paginate @products %>
-<hr />
-<% @products.each do |product| %>
-<div>
-  <p>
-    <%= image_tag product.attachment.url(:thumb) %><br />
-    <b>Title:</b>
-    <%= link_to product.title, user_product_path(@user, product) %>
-  </p>
-  <p>
-    <b>Id:</b>
-    <%= product.id %>
-  </p>
-  <%= link_to 'Edit Product', edit_user_product_path(@user, product) %> |
-  <%= link_to 'Delete Product', [@user, product], method: :delete, data: { confirm: 'Are you sure?' } %><br />
-  <hr />
+<div class="row">
+  <div class="user-profile">
+    <div class="col-md-6">
+      <%= image_tag current_user.avatar.url(:medium) %>
+    </div>
+    <div class="col-md-6 user-col">
+      <p>
+        <strong>First name:</strong>
+        <%= @user.fname %>
+      </p>
+      <p>
+        <b>Last name:</b>
+        <%= @user.lname %>
+      </p>
+      <p>
+        <b>Email Address:</b>
+        <%= @user.email %>
+      </p>
+      <p>
+        <b>Postal Address:</b>
+        <%= @user.postal %>
+      </p>
+    </div>
+  </div>
 </div>
-<% end %>
-<div>
-  <p>
-    Reviews by you:
-  </p>
-  <% @user.reviews.each do |review| %>
-    <p>
-    <%= image_tag review.product.attachment.url(:thumb) %><br />
-    <%= review.product.title %><br />
-    Review:<br />
-    <%= review.description %><br />
-    </p>
-    ---------------------------------
-  <% end %>
+<div class="row">
+  <%= paginate @products %>
+  <div class="col-xs-16 col-md-12">
+    <h3><%= @user.fname %>'s Products</h3>
+    <div class="clearfix"></div>
+    <div class="row">
+      <% @products.each do |product| %>
+        <div class="col-xs-6 col-md-4">
+          <div class="well mywell">
+            <span><%= image_tag product.attachment.url(:thumb) %></span>
+            <p class="product-title"><%= link_to product.title, product_path(product) %></p>
+            <p>Price: <%= number_to_currency product.price %></p>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
 </div>
+
 <hr />
 
-<%= link_to 'Add Products',  new_user_product_path(@user) %> |
 <%= link_to 'Back', :back %>

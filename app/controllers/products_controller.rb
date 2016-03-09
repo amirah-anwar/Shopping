@@ -4,7 +4,7 @@ class ProductsController < ApplicationController
   respond_to :html
 
   def index
-    @products = Product.all
+    @products = Product.order("title").page(params[:page]).per(10)
   end
 
   def show
