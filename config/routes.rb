@@ -1,6 +1,7 @@
 Demo::Application.routes.draw do
   root :to => 'products#index'
   resources :reviews
+  resources :orders
   devise_for :users
 
   resources :users do

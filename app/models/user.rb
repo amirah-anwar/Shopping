@@ -15,6 +15,7 @@ class User < ActiveRecord::Base
 
   has_many :products, dependent: :destroy
   has_many :reviews, dependent: :destroy
+  has_many :orders, dependent: :destroy
 
   def name
     [self.fname, self.lname].join(' ')
