@@ -11,9 +11,11 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :discount %><br />
-    <%= f.text_field :discount %>
+  <h2>Product:</h2>
+  <div class="product-info">
+
+    <p><strong>Title:</strong><%= @order.product.title %></p>
+
   </div>
   <div class="actions">
     <%= f.submit %>

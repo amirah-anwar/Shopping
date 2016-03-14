@@ -1,10 +1,51 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <b>Discount:</b>
-  <%= @order.discount %>
-</p>
-
-
-<%= link_to 'Edit', edit_order_path(@order) %> |
-<%= link_to 'Back', orders_path %>
+<% if @ordered_products.present? %>
+  <h1>Your order</h1>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-xs-10 col-md-8">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Your Order:</th>
+              <th>Product Price:</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @ordered_products.each do |ordered_product| %>
+              <tr>
+                <td>
+                  <span><%= image_tag ordered_product.product.attachment.url(:thumb) %></span>
+                  <p class="product-title"><%= link_to ordered_product.product.title, ordered_product.product %></p>
+                  <p><%= link_to 'Remove Product', ordered_product, method: :delete, data: { confirm: 'Are you sure?' } %><p>
+                </td>
+                <td>
+                  <p>Price: <%= number_to_currency ordered_product.product.price %></p>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-xs-6 col-md-4">
+        <table>
+          <tr>
+            <th>Total Price:</th>
+            <th>Discount:</th>
+            <th>Final Price:</th>
+          </tr>
+          <tr>
+            <td><%= @price %></td>
+            <td>10%</td>
+            <td class="discounted-price"><%= @discount %></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+  <%= link_to 'Buy more Products',  products_path, class: "btn btn-success" %>
+  <%= link_to 'Proceed to Checkout',  checkout_order_path(current_order), class: "btn btn-success" %>
+<% else %>
+  <h3>You did not order any products.</h3>
+  <br / >
+  <%= link_to 'Buy more Products',  products_path, class: "btn btn-success" %>
+<% end %>

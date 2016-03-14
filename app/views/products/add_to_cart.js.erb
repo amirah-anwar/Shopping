@@ -1,0 +1,5 @@
+<% if @ordered_product.valid? %>
+  $("#cart").html("<%= escape_javascript(render 'products/mycart')%>");
+<% else %>
+  $('.errors').html('<h4>Error</h4>')
+<% end %>

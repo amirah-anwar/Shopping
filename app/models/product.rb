@@ -3,7 +3,7 @@ class Product < ActiveRecord::Base
 
   belongs_to :user
   has_many :reviews, dependent: :destroy
-  has_many :orders, dependent: :destroy
+  has_many :ordered_products, dependent: :destroy
 
   accepts_nested_attributes_for :reviews
 
@@ -16,5 +16,9 @@ class Product < ActiveRecord::Base
 
   def is_owner?(current_user_id)
     self.user_id == current_user_id
+  end
+
+  def display_title
+    self.title
   end
 end

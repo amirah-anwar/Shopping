@@ -11,8 +11,9 @@
         </div>
       </div>
       <div class="col-xs-8 col-md-6 order-buttons">
-        <button class="btn-danger">Buy Now</button>
-        <button class="btn-danger" href="orders_path">Add to cart</button>
+        <% if current_user.id != @product.user_id %>
+          <%= link_to "Add To Cart",  add_to_cart_product_path(@product), class: "btn btn-success", method: :post, remote: true %>
+        <% end %>
       </div>
     </div>
   </div>

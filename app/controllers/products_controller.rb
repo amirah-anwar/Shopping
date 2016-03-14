@@ -1,13 +1,13 @@
 class ProductsController < ApplicationController
-  before_filter :set_product, only: [:show, :edit, :update, :destroy]
-  before_filter :authenticate_user!, only: [:new, :edit, :update, :create, :destroy]
-  respond_to :html
+  before_filter :set_product, only: [:show, :edit, :update, :destroy, :add_to_cart]
+  before_filter :authenticate_user!, only: [:new, :edit, :update, :create, :destroy, :add_to_cart]
 
   def index
     @products = Product.order("title").page(params[:page]).per(10)
   end
 
   def show
+    @order = current_order
     @user = @product.user
     @reviews = @product.reviews
     @review = Review.new
@@ -53,6 +53,14 @@ class ProductsController < ApplicationController
       format.html { redirect_to products_path, notice: 'Product was successfully destroyed!.' }
       format.json { head :no_content }
     end
+  end
+
+  def add_to_cart
+    @order = current_order
+    @ordered_product = @order.ordered_products.new
+    @ordered_product.order_id = @order.id
+    @ordered_product.product_id = @product.id
+    @ordered_product.save
   end
 
   private
