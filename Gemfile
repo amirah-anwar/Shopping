@@ -35,7 +35,9 @@ gem 'activeadmin', '~> 0.6.6'
 
 gem 'devise'
 
+gem 'braintree'
 
+gem 'gon'
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

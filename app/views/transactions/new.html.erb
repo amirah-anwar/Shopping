@@ -1,0 +1,8 @@
+<div class="form-container">
+  <h2>New Transaction</h2>
+  <%= form_tag transactions_path do %>
+    <p>Please enter your payment details:</p>
+    <div id="dropin"></div>
+    <%= submit_tag "Pay $#{current_order.discounted_price.round}" %>
+  <% end %>
+</div>

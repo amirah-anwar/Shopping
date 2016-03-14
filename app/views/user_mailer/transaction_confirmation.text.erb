@@ -1,0 +1,12 @@
+Hi, <%= @user.name %>
+===============================================
+
+You have successfully made a transaction of $<%= @order.discounted_price %>.
+You ordered the following products from us.
+<% @ordered_products.each do |ordered_product| %>
+  <%= ordered_product.product.title %>
+  Price: <%= number_to_currency ordered_product.product.price %>
+  -----------------------------------------------------
+<% end %>
+
+Thanks for buying and have a great day!

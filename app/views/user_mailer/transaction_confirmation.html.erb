@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Hi, <%= @user.name %></h1>
+    <p>
+      You have successfully made a transaction of $<%= @order.discounted_price %>.
+      You ordered the following products from us.
+      <% @ordered_products.each do |ordered_product| %>
+        <tr>
+          <td>
+            <p class="product-title"><%= ordered_product.product.title %></p>
+            <p>Price: <%= number_to_currency ordered_product.product.price %></p>
+            <hr />
+          </td>
+        </tr>
+      <% end %>
+    </p>
+    <p>Thanks for buying and have a great day!</p>
+  </body>
+</html>
+
+<style type="text/css">
+  .product-title {
+    color: red;
+  }
+</style>
