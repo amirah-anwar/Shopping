@@ -12,6 +12,7 @@
       <% if review.user_id == current_user.id || current_user.id == @product.user_id %>
         | <%= link_to 'Delete Review', [@product, review], method: :delete,
                  data: { confirm: 'Are you sure?' } %>
+        </div>
       <% end %>
     <% end %>
   </div>

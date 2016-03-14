@@ -23,7 +23,17 @@ class ReviewsController < ApplicationController
     @review = Review.new(params[:review])
     @review.user_id = current_user.id
     @review.product_id = @product.id
-    @review.save
+
+    respond_to do |format|
+      if @review.save
+        format.html { redirect_to @product, notice: 'Review was successfully saved.' }
+        format.js
+        format.json { head :no_content }
+      else
+        format.html { render action: "new" }
+        format.json { render json: @review.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   def update

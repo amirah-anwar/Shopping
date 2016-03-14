@@ -10,7 +10,7 @@
           <div class="well mywell">
             <span><%= image_tag product.attachment.url(:thumb) %></span>
             <p class="product-title"><%= link_to product.title, product_path(product) %></p>
-            <p>Price: <%= number_to_currency product.price %></p>
+            <p class="product-price">Price: <%= number_to_currency product.price %></p>
             <p><%= link_to 'Edit Product', edit_product_path(product) %> |
                 <%= link_to 'Delete Product', product, method: :delete,
                                 data: { confirm: 'Are you sure?' } %></p>
